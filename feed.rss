@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Techblog</title><description>A description of Techblog</description><link>https://your-website-url.com</link><language>en</language><lastBuildDate>Fri, 26 Aug 2022 21:42:33 +0900</lastBuildDate><pubDate>Fri, 26 Aug 2022 21:42:33 +0900</pubDate><ttl>250</ttl><atom:link href="https://your-website-url.com/feed.rss" rel="self" type="application/rss+xml"/><item><guid isPermaLink="true">https://your-website-url.com/posts/first-post</guid><title>My first post</title><description>A description of my first post.</description><link>https://your-website-url.com/posts/first-post</link><pubDate>Fri, 26 Aug 2022 21:35:00 +0900</pubDate><content:encoded><![CDATA[<h1>My first post</h1><p>My first post's text.</p>]]></content:encoded></item></channel></rss>
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Techblog</title><description>A description of Techblog</description><link>https://kokiHirokawa.github.io</link><language>en</language><lastBuildDate>Sun, 28 Aug 2022 12:52:12 +0900</lastBuildDate><pubDate>Sun, 28 Aug 2022 12:52:12 +0900</pubDate><ttl>250</ttl><atom:link href="https://kokiHirokawa.github.io/feed.rss" rel="self" type="application/rss+xml"/><item><guid isPermaLink="true">https://kokiHirokawa.github.io/posts/first-post</guid><title>Protocol 'SomeProtocol' can only be used as a generic constraint because it has Self or associated type requirements</title><description></description><link>https://kokiHirokawa.github.io/posts/first-post</link><pubDate>Sun, 28 Aug 2022 12:00:00 +0900</pubDate><content:encoded><![CDATA[<h1>Protocol 'SomeProtocol' can only be used as a generic constraint because it has Self or associated type requirements</h1><p>以下のようなコードを書いた際に、❌の箇所で発生するコンパイルエラーです。<br>なぜAssociated Typeがあるとプロパティとして宣言できないのでしょうか？</p><pre><code class="language-swift">protocol MyProtocol {
+    associatedtype Value
+    
+    func doSomething(_ value: Value)
+}
+
+class MyClass {
+    let instance: MyProtocol // ❌
+}
+</code></pre><h2>ProtocolがAssociated Typeを持たない場合</h2><p>この場合は、問題なくコンパイルが成功します。</p><pre><code class="language-swift">protocol MyProtocol {
+    
+    func doSomething()
+}
+
+class MyClass {
+    let instance: MyProtocol
+}
+</code></pre><h2>ProtocolがAssociated Typeを持つ場合</h2><p>以下のように、MyClassからMyProtocolのメソッドを呼び出すコードを追記してみました。<br>このとき🦊には、MyProtocolのValue型の値が渡されるはずですが、この時点でValue型が確定できないため、コンパイルエラーが発生します。</p><pre><code class="language-swift">protocol MyProtocol {
+    associatedtype Value
+    
+    func doSomething(_ value: Value)
+}
+
+class MyClass {
+    let instance: MyProtocol
+
+    func myFunc() {
+        instance.doSomething(🦊)
+    }
+}
+</code></pre>]]></content:encoded></item></channel></rss>
